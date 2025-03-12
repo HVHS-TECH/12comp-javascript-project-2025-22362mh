@@ -31,7 +31,6 @@ function setup(){
     player.color = "pink";
 
     birdGroup = new Group();
-    birdGroup.add(createBirds());
 }
 
 /*******************************************************/
@@ -72,6 +71,10 @@ function runGame(){
 function gameLoop(){
     movePlayer();
     background('blue');
+
+    if (birdGroup.length < 5){
+        birdGroup.add(createBirds());
+    }
 }
 
 /*******************************************************/
@@ -110,7 +113,7 @@ function movePlayer(){
 }
 
 function createBirds(){
-    var bird = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), birdSize);
+        var bird = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), birdSize);
     bird.color = "cyan";
     return bird;
 }
