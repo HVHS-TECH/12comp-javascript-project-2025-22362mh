@@ -6,8 +6,8 @@
 
 /*******************************************************/
 // To Do List:
-// 1. Figure out how to spawn the birds in
-// 2. Spread out the spawning in of the birds
+// 1. Do apple collision
+// 2. Find grass background
 /*******************************************************/
 
 const GAMEHEIGHT = 500;
@@ -15,10 +15,23 @@ const GAMEWIDTH = 500;
 
 const MOVEMENTSPEED = 10;
 
+const APPLESIZE = 10;
+
 var playerSize = 30;
-var birdSize = 20;
+var chickSize = 30;
 
 var gameState = "start";
+
+var score = 0;
+var appleCount = 0;
+
+/*******************************************************/
+//preload()
+/*******************************************************/
+let chickImg;
+function preload(){
+    chickImg = loadImage("/assets/images/chick.png");
+}
 
 /*******************************************************/
 //setup()
@@ -30,7 +43,11 @@ function setup(){
     player = new Sprite(GAMEWIDTH/2, GAMEHEIGHT/2, playerSize, 'd');
     player.color = "pink";
 
-    birdGroup = new Group();
+    chickGroup = new Group();
+
+    appleGroup = new Group();
+
+    player.collides(appleGroup, getApple);
 }
 
 /*******************************************************/
@@ -53,7 +70,7 @@ function draw(){
 /*******************************************************/
 function startScreen(){
     player.remove();
-    birdGroup.remove();
+    chickGroup.remove();
 }
 
 /*******************************************************/
@@ -63,6 +80,7 @@ function runGame(){
     //Starts the game and reloads the sprites so that they appear again
     gameState = "play";
     setup();
+    walls();
 }
 
 /*******************************************************/
@@ -72,9 +90,19 @@ function gameLoop(){
     movePlayer();
     background('blue');
 
-    if (birdGroup.length < 5){
-        birdGroup.add(createBirds());
+    if (chickGroup.length < 5){
+        chickGroup.add(createChicks());
     }
+
+    if (appleGroup.length < 5){
+        appleGroup.add(createApples());
+    }
+
+    textSize(20);
+    text("Score: " + score, 10, 30);
+
+    textSize(20);
+    text("Apples: " + appleCount, 10, 50);
 }
 
 /*******************************************************/
@@ -112,8 +140,31 @@ function movePlayer(){
 	}
 }
 
-function createBirds(){
-        var bird = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), birdSize);
-    bird.color = "cyan";
-    return bird;
+function createChicks(){
+    var chick = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), chickSize);
+    chick.image = (chickImg);
+    chick.scale = 1.3;
+    return chick;
+}
+
+function createApples(){
+    var apple = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), APPLESIZE);
+    apple.color = "red";
+    return apple;
+}
+
+function getApple(player, _apple){
+    _apple.remove();
+    appleCount++;
+}
+
+function walls(){
+    wallLH  = new Sprite(0, height/2, 8, height, 's');
+	wallRH  = new Sprite(500, height/2, 8, height, 's');
+	wallTop = new Sprite(250, 0, width, 8, 's');
+	wallBot = new Sprite(250, 500, width, 8, 's');
+	wallLH.color = 'purple';
+	wallRH.color = 'purple';
+	wallTop.color = 'purple';
+	wallBot.color = 'purple';
 }
