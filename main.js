@@ -6,8 +6,9 @@
 
 /*******************************************************/
 // To Do List:
-// 1. Do apple collision
-// 2. Find grass background
+// 1. Make the title screen look better.
+// 2. Fix chick movement
+// 3. Fix spawn timing of chicks and apples
 /*******************************************************/
 
 const GAMEHEIGHT = 500;
@@ -15,10 +16,10 @@ const GAMEWIDTH = 500;
 
 const MOVEMENTSPEED = 10;
 
-const APPLESIZE = 10;
+const APPLESIZE = 15;
+const CHICKSIZE = 30;
 
 var playerSize = 30;
-var chickSize = 30;
 
 var gameState = "start";
 
@@ -29,8 +30,10 @@ var appleCount = 0;
 //preload()
 /*******************************************************/
 let chickImg;
+let appleImg;
 function preload(){
     chickImg = loadImage("/assets/images/chick.png");
+    appleImg = loadImage("/assets/images/apple.png");
 }
 
 /*******************************************************/
@@ -40,7 +43,7 @@ function setup(){
     console.log("setup");
     cnv = new Canvas(GAMEWIDTH, GAMEHEIGHT);
 
-    player = new Sprite(GAMEWIDTH/2, GAMEHEIGHT/2, playerSize, 'd');
+    player = new Sprite(GAMEWIDTH/2, GAMEHEIGHT/2, playerSize, 'k');
     player.color = "pink";
 
     chickGroup = new Group();
@@ -81,6 +84,7 @@ function runGame(){
     gameState = "play";
     setup();
     walls();
+
 }
 
 /*******************************************************/
@@ -88,12 +92,14 @@ function runGame(){
 /*******************************************************/
 function gameLoop(){
     movePlayer();
-    background('blue');
+    background("green");
 
+    //if the number of chicks is less than 5, create another chick
     if (chickGroup.length < 5){
         chickGroup.add(createChicks());
     }
 
+    //if the amount of apples is less than 5, create another apple
     if (appleGroup.length < 5){
         appleGroup.add(createApples());
     }
@@ -141,7 +147,7 @@ function movePlayer(){
 }
 
 function createChicks(){
-    var chick = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), chickSize);
+    var chick = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), CHICKSIZE);
     chick.image = (chickImg);
     chick.scale = 1.3;
     return chick;
@@ -149,7 +155,7 @@ function createChicks(){
 
 function createApples(){
     var apple = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), APPLESIZE);
-    apple.color = "red";
+    apple.image = (appleImg);
     return apple;
 }
 
