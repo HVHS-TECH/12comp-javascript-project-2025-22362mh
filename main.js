@@ -40,7 +40,6 @@ function preload(){
 //setup()
 /*******************************************************/
 function setup(){
-    console.log("setup");
     cnv = new Canvas(GAMEWIDTH, GAMEHEIGHT);
 
     player = new Sprite(GAMEWIDTH/2, GAMEHEIGHT/2, playerSize, 'k');
@@ -51,6 +50,7 @@ function setup(){
     appleGroup = new Group();
 
     player.collides(appleGroup, getApple);
+    player.collides(chickGroup, chickDeath);
 }
 
 /*******************************************************/
@@ -92,6 +92,7 @@ function runGame(){
 /*******************************************************/
 function gameLoop(){
     movePlayer();
+    chickMovement();
     background("green");
 
     //if the number of chicks is less than 5, create another chick
@@ -115,7 +116,11 @@ function gameLoop(){
 //endGame()
 /*******************************************************/
 function endGame(){
+    player.remove();
+    chickGroup.remove();
+    appleGroup.remove();
 
+    background("red");
 }
 
 function movePlayer(){
@@ -151,6 +156,23 @@ function createChicks(){
     chick.image = (chickImg);
     chick.scale = 1.3;
     return chick;
+}
+
+function chickMovement(){
+    for (i = 0; i < chickGroup.length; i++){
+        chickGroup[i].moveTo(player, 0.7);
+    }
+}
+
+function chickDeath(player, _chick){
+    if (appleCount >= 2){
+        _chick.remove();
+        score++
+        appleCount = appleCount - 2;
+    }
+    else {
+        gameState = "end";
+    }
 }
 
 function createApples(){
