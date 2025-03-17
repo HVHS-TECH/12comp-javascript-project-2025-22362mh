@@ -31,9 +31,14 @@ var appleCount = 0;
 /*******************************************************/
 let chickImg;
 let appleImg;
+let wormRightImg;
+let wormLeftImg;
+
 function preload(){
     chickImg = loadImage("/assets/images/chick.png");
     appleImg = loadImage("/assets/images/apple.png");
+    wormRightImg = loadImage("/assets/images/wormRight.png");
+    wormLeftImg = loadImage("/assets/images/wormLeft.png");
 }
 
 /*******************************************************/
@@ -43,7 +48,8 @@ function setup(){
     cnv = new Canvas(GAMEWIDTH, GAMEHEIGHT);
 
     player = new Sprite(GAMEWIDTH/2, GAMEHEIGHT/2, playerSize, 'k');
-    player.color = "pink";
+    player.image = wormRightImg;
+    player.scale = 1.5;
 
     chickGroup = new Group();
     appleGroup = new Group();
@@ -127,9 +133,11 @@ function endGame(){
 function movePlayer(){
     if (kb.pressing('left')){
 		player.vel.x = -MOVEMENTSPEED;
+        player.image = wormLeftImg;
 	}
 	else if (kb.pressing('right')) {
 		player.vel.x = MOVEMENTSPEED;
+        player.image = wormRightImg;
 	}
 	else if (kb.pressing('up')) {
 		player.vel.y = -MOVEMENTSPEED;
