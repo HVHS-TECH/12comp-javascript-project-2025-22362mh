@@ -14,7 +14,7 @@
 const GAMEHEIGHT = 500;
 const GAMEWIDTH = 500;
 
-const MOVEMENTSPEED = 10;
+const MOVEMENTSPEED = 5;
 
 const APPLESIZE = 15;
 const CHICKSIZE = 30;
@@ -46,9 +46,9 @@ function setup(){
     player.color = "pink";
 
     chickGroup = new Group();
-
     appleGroup = new Group();
 
+    //Checking collisions of sprites with the player
     player.collides(appleGroup, getApple);
     player.collides(chickGroup, chickDeath);
 }
@@ -93,6 +93,7 @@ function runGame(){
 function gameLoop(){
     movePlayer();
     chickMovement();
+    chickAppleCollision(chickGroup, appleGroup);
     background("green");
 
     //if the number of chicks is less than 5, create another chick
@@ -152,9 +153,33 @@ function movePlayer(){
 }
 
 function createChicks(){
-    var chick = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), CHICKSIZE);
-    chick.image = (chickImg);
-    chick.scale = 1.3;
+    //The following code was generated from chatGPT:
+    let side = floor(random(4)); // 0 = top, 1 = right, 2 = bottom, 3 = left
+    let x, y;
+
+    if (side === 0) { // Top edge
+        x = random(0, GAMEWIDTH);
+        y = 30;
+    } 
+    else if (side === 1) { // Right edge
+        x = GAMEWIDTH - 30;
+        y = random(0, GAMEHEIGHT);
+    } 
+    else if (side === 2) { // Bottom edge
+        x = random(0, GAMEWIDTH);
+        y = GAMEHEIGHT - 30;
+    } 
+    else { // Left edge
+        x = 30;
+        y = random(0, GAMEHEIGHT);
+    }
+    //That is the end of the code generated from ChatGPT
+
+    var chick = new Sprite(x, y, CHICKSIZE);
+    chick.image = chickImg;
+    chick.image.offset.y = -10;
+    chick.scale = 1.4;
+    chick.debug = true;
     return chick;
 }
 
@@ -165,12 +190,12 @@ function chickMovement(){
 }
 
 function chickDeath(player, _chick){
-    if (appleCount >= 2){
+    if (appleCount >= 2){ //If player has two apples, they can defeat a chick
         _chick.remove();
         score++
         appleCount = appleCount - 2;
     }
-    else {
+    else { //If they don't have two apples, they die
         gameState = "end";
     }
 }
@@ -184,6 +209,15 @@ function createApples(){
 function getApple(player, _apple){
     _apple.remove();
     appleCount++;
+}
+
+function chickAppleCollision(_chick, _apple){
+    if (_chick.overlapping(_apple)){ // Checking if a chick is touching an apple
+        _apple.collider = "none"; // Turns apple collider into none so that the chick doesn't move the apple
+    }
+    else {
+        _apple.collider = "d"; //Turns the apple's collider back to dynamic
+    }
 }
 
 function walls(){
