@@ -7,7 +7,6 @@
 /*******************************************************/
 // To Do List:
 // 1. Make the title screen look better.
-// 2. Fix spawn timing of chicks and apples
 /*******************************************************/
 
 //CONSTANT VARIABLES
@@ -49,7 +48,12 @@ function preload(){
 //setup()
 /*******************************************************/
 function setup(){
-    cnv = new Canvas(GAMEWIDTH, GAMEHEIGHT);
+    const cnv = document.getElementById("canvas");
+    cnv.width = GAMEWIDTH;
+    cnv.height = GAMEHEIGHT;
+    displayMode('centered', 'normal', 2);
+
+    allSprites.pixelPerfect = true;
 
     player = new Sprite(GAMEWIDTH/2, GAMEHEIGHT/2, playerSize, 'd');
     player.image = wormRightImg;
@@ -278,12 +282,12 @@ function duckMovement(){
 }
 
 function duckDeath(player, _duck){
-    if (appleCount >= 2){ //If player has 3 apples, they can defeat a duck
+    if (appleCount >= 3){ //If player has 3 apples, they can defeat a duck
         _duck.remove();
         score = score + 2; //Adds 2 points to the score instead of 1
         appleCount = appleCount - 3; //Minus the amount of apples it took to defeat the duck
     }
-    else { //If they don't have three apples, they die
+    else{ //If they don't have three apples, they die
         gameState = "end";
     }
 }
