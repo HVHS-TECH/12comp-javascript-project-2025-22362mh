@@ -48,22 +48,20 @@ function preload(){
 //setup()
 /*******************************************************/
 function setup(){
-    const cnv = document.getElementById("canvas");
-    cnv.width = GAMEWIDTH;
-    cnv.height = GAMEHEIGHT;
-    displayMode('centered', 'normal', 2);
+    cnv = new Canvas(GAMEWIDTH, GAMEHEIGHT);
+    displayMode('centered', 'pixelated', 2);
 
     allSprites.pixelPerfect = true;
 
     player = new Sprite(GAMEWIDTH/2, GAMEHEIGHT/2, playerSize, 'd');
     player.image = wormRightImg;
     player.scale = 1.5;
-
-    player.rotationLock = true;
-
+    
     chickGroup = new Group();
     duckGroup = new Group();
     appleGroup = new Group();
+
+    player.rotationLock = true;
 
     //Checking collisions of sprites with the player
     player.collides(appleGroup, getApple);
@@ -91,10 +89,7 @@ function draw(){
 /*******************************************************/
 function startScreen(){
     //removing the sprites from the start screen
-    player.remove();
-    chickGroup.remove();
-    duckGroup.remove();
-    appleGroup.remove();
+    allSprites.remove();
 }
 
 /*******************************************************/
@@ -106,6 +101,22 @@ function runGame(){
     setup();
     walls();
 
+    deleteTitlePage();
+}
+
+/*******************************************************/
+//deleteTitlePage()
+/*******************************************************/
+function deleteTitlePage(){
+    //Removing html elements of the title page
+    //This is so the canvas can be at the top of the page instead of coming after html elements
+    var title = document.getElementById("title");
+    var start = document.getElementById("start");
+    var instructions = document.getElementById("instructions");
+
+    title.remove();
+    start.remove();
+    instructions.remove();
 }
 
 /*******************************************************/
@@ -150,12 +161,7 @@ function gameLoop(){
 //endGame()
 /*******************************************************/
 function endGame(){
-    //Remove all sprites from the end screen
-    player.remove();
-    chickGroup.remove();
-    appleGroup.remove();
-    duckGroup.remove();
-
+    allSprites.remove();
     background("crimson");
 
     textSize(40);
