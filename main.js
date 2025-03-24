@@ -67,6 +67,8 @@ function setup(){
     player.collides(appleGroup, getApple);
     player.collides(chickGroup, chickDeath);
     player.collides(duckGroup, duckDeath);
+
+    cleanupExtraSprites();
 }
 
 /*******************************************************/
@@ -362,6 +364,24 @@ function duckAppleCollision(){
             if (!duckOverlapping) { 
                 apple.collider = "d"; // Reset to dynamic if no ducks are touching it
             }
+        }
+    }
+}
+
+//This function was created by chatGPT
+//This function deletes any extra sprites that are a chick, apple or duck not a part of the groups.
+function cleanupExtraSprites(){
+    for (let i = 0; i < allSprites.length; i++) {
+        let sprite = allSprites[i];
+        if (!chickGroup.includes(sprite) && 
+            !duckGroup.includes(sprite) && 
+            !appleGroup.includes(sprite)) {
+            sprite.remove(); // ✅ Remove any sprite not in a group
+        }
+    }
+    for (let i = 0; i < allSprites.length; i++) {
+        if (allSprites[i].image === duckImg) { 
+            allSprites[i].remove(); 
         }
     }
 }
