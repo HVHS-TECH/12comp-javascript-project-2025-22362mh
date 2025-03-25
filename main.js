@@ -7,6 +7,7 @@
 /*******************************************************/
 // To Do List:
 // 1. Make the title screen look better.
+//2. Get the background in
 /*******************************************************/
 
 //CONSTANT VARIABLES
@@ -37,6 +38,7 @@ let chickenImg;
 let appleImg;
 let wormRightImg;
 let wormLeftImg;
+let grassBackgroundImg
 
 function preload(){
     chickImg = loadImage("/assets/images/chick.png");
@@ -45,6 +47,7 @@ function preload(){
     appleImg = loadImage("/assets/images/apple.png");
     wormRightImg = loadImage("/assets/images/wormRight.png");
     wormLeftImg = loadImage("/assets/images/wormLeft.png");
+    grassBackgroundImg = loadImage("/assets/images/grass.png");
 }
 
 /*******************************************************/
@@ -134,7 +137,7 @@ function gameLoop(){
     chickAppleCollision(chickGroup, appleGroup);
     duckAppleCollision(duckGroup, appleGroup);
 
-    background("green");
+    background(grassBackgroundImg);
 
     //if the number of chicks is less than 3, create another chick
     if (chickGroup.length < 3){
