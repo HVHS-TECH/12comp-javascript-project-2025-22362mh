@@ -231,7 +231,7 @@ function playerCollisions(){
         player.overlaps(chickGroup, chickDeath);
         player.overlaps(duckGroup, duckDeath);
         player.overlaps(chickenGroup, chickenDeath);
-        player.overlaps(eggGroup, slowdown);
+        //player.overlaps(eggGroup, slowdown);
 }
 
 function createChicks(){
