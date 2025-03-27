@@ -259,7 +259,7 @@ function createChicks(){
 function chickMovement(){
     //Every chick moves towards the player separately
     for (i = 0; i < chickGroup.length; i++){
-        chickGroup[i].moveTo(player, 0.8);
+        chickGroup[i].moveTo(player, 0.9);
     }
 }
 
@@ -308,7 +308,7 @@ function createDucks(){
 function duckMovement(){
     //Every duck in the group moves to the player separately
     for (i = 0; i < duckGroup.length; i++){
-        duckGroup[i].moveTo(player, 0.5);
+        duckGroup[i].moveTo(player, 0.7);
     }
 }
 
@@ -357,7 +357,7 @@ function createChickens(){
 function chickenMovement(){
     //Every duck in the group moves to the player separately
     for (i = 0; i < chickenGroup.length; i++){
-        chickenGroup[i].moveTo(player, 0.5);
+        chickenGroup[i].moveTo(player, 0.6);
     }
 }
 
