@@ -18,7 +18,7 @@ const APPLESIZE = 20;
 const CHICKSIZE = 30;
 const DUCKSIZE = 30;
 const CHICKENSIZE = 30;
-const EGGSIZE = 30;
+//const EGGSIZE = 30;
 
 //NORMAL VARIABLES
 var playerSize = 30;
@@ -39,7 +39,7 @@ let appleImg;
 let wormRightImg;
 let wormLeftImg;
 let grassBackgroundImg;
-let eggImg;
+//let eggImg;
 
 function preload(){
     chickImg = loadImage("/assets/images/chick.png");
@@ -49,7 +49,7 @@ function preload(){
     wormRightImg = loadImage("/assets/images/wormRight.png");
     wormLeftImg = loadImage("/assets/images/wormLeft.png");
     grassBackgroundImg = loadImage("/assets/images/grass.png");
-    eggImg = loadImage("/assets/images/egg.png");
+    //eggImg = loadImage("/assets/images/egg.png");
 }
 
 /*******************************************************/
@@ -62,13 +62,13 @@ function setup(){
     allSprites.pixelPerfect = true;
 
     createPlayer();
-    createEgg();
+    //createEgg();
 
     chickGroup = new Group();
     duckGroup = new Group();
     appleGroup = new Group();
     chickenGroup = new Group();
-    eggGroup = new Group();
+    //eggGroup = new Group();
 
     cleanupExtraSprites();
 
@@ -163,9 +163,9 @@ function gameLoop(){
         appleGroup.add(createApples());
     }
 
-    if(eggGroup.length < 1){
-        eggGroup.add(createEgg());
-    }
+    //if(eggGroup.length < 1){
+    //    eggGroup.add(createEgg());
+    //}
 
     textSize(20);
     text("Score: " + score, 10, 30);
@@ -381,13 +381,13 @@ function chickenDeath(player, _chicken){
     }
 }
 
-function createEgg(){
+/*function createEgg(){
     egg = new Sprite(150, 150, EGGSIZE);
     egg.image = (eggImg);
     egg.scale = 0.15;
     egg.rotationLock = true;
     return egg;
-}
+}*/
 
 function createApples(){
     var apple = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), APPLESIZE);
