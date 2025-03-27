@@ -357,7 +357,7 @@ function createChickens(){
 function chickenMovement(){
     //Every duck in the group moves to the player separately
     for (i = 0; i < chickenGroup.length; i++){
-        chickenGroup[i].moveTo(player, 0.6);
+        chickenGroup[i].moveTo(player, 0.8);
     }
 }
 
