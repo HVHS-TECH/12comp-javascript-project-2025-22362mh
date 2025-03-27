@@ -22,7 +22,7 @@ const CHICKENSIZE = 30;
 
 //NORMAL VARIABLES
 var playerSize = 30;
-var movementSpeed = 5;
+var movementSpeed = 4;
 
 var gameState = "start";
 
