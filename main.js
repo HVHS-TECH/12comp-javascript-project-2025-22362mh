@@ -42,14 +42,13 @@ let grassBackgroundImg;
 //let eggImg;
 
 function preload(){
-    chickImg = loadImage("/assets/images/chick.png");
-    duckImg = loadImage("/assets/images/duck.png");
-    chickenImg = loadImage("/assets/images/chicken.png");
-    appleImg = loadImage("/assets/images/apple.png");
-    wormRightImg = loadImage("/assets/images/wormRight.png");
-    wormLeftImg = loadImage("/assets/images/wormLeft.png");
-    grassBackgroundImg = loadImage("/assets/images/grass.png");
-    //eggImg = loadImage("/assets/images/egg.png");
+    chickImg = loadImage("assets/images/chick.png");
+    duckImg = loadImage("assets/images/duck.png");
+    chickenImg = loadImage("assets/images/chicken.png");
+    appleImg = loadImage("assets/images/apple.png");
+    wormRightImg = loadImage("assets/images/wormRight.png");
+    wormLeftImg = loadImage("assets/images/wormLeft.png");
+    grassBackgroundImg = loadImage("assets/images/grass.png");
 }
 
 /*******************************************************/
@@ -68,7 +67,6 @@ function setup(){
     duckGroup = new Group();
     appleGroup = new Group();
     chickenGroup = new Group();
-    //eggGroup = new Group();
 
     cleanupExtraSprites();
 
@@ -163,10 +161,6 @@ function gameLoop(){
         appleGroup.add(createApples());
     }
 
-    //if(eggGroup.length < 1){
-    //    eggGroup.add(createEgg());
-    //}
-
     textSize(20);
     text("Score: " + score, 10, 30);
 
@@ -231,7 +225,6 @@ function playerCollisions(){
         player.overlaps(chickGroup, chickDeath);
         player.overlaps(duckGroup, duckDeath);
         player.overlaps(chickenGroup, chickenDeath);
-        //player.overlaps(eggGroup, slowdown);
 }
 
 function createChicks(){
@@ -381,27 +374,12 @@ function chickenDeath(player, _chicken){
     }
 }
 
-/*function createEgg(){
-    egg = new Sprite(150, 150, EGGSIZE);
-    egg.image = (eggImg);
-    egg.scale = 0.15;
-    egg.rotationLock = true;
-    return egg;
-}*/
-
 function createApples(){
     var apple = new Sprite(random(0, GAMEHEIGHT), random(0, GAMEHEIGHT), APPLESIZE);
     apple.image = (appleImg);
     apple.scale = 1.2;
     apple.rotationLock = true;
     return apple;
-}
-
-function slowdown(){
-    console.log("Movement speed: " + movementSpeed);
-    for(i = 0; i <= 3000; i++){
-        movementSpeed = 3;
-    }
 }
 
 function getApple(player, _apple){
