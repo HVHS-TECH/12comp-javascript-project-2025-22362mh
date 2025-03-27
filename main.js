@@ -39,7 +39,6 @@ let appleImg;
 let wormRightImg;
 let wormLeftImg;
 let grassBackgroundImg;
-//let eggImg;
 
 function preload(){
     chickImg = loadImage("assets/images/chick.png");
@@ -61,7 +60,6 @@ function setup(){
     allSprites.pixelPerfect = true;
 
     createPlayer();
-    //createEgg();
 
     chickGroup = new Group();
     duckGroup = new Group();
