@@ -362,12 +362,12 @@ function chickenMovement(){
 }
 
 function chickenDeath(player, _chicken){
-    if (appleCount >= 4){ //If player has 3 apples, they can defeat a duck
+    if (appleCount >= 4){ //If player has 4 apples, they can defeat a chicken
         _chicken.remove();
-        score = score + 3; //Adds 2 points to the score instead of 1
+        score = score + 3; //Adds 3 points to the score instead of 1
         appleCount = appleCount - 4; //Minus the amount of apples it took to defeat the duck
     }
-    else{ //If they don't have three apples, they die
+    else{ //If they don't have four apples, they die
         gameState = "end";
     }
 }
