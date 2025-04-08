@@ -33,6 +33,14 @@ var gameState = "start";
 var score = 0;
 var appleCount = 0;
 
+var ducks = 0;
+var chicks = 0;
+var chickens = 0;
+
+var easy = 3;
+var medium = 20;
+var hard = 30;
+
 /*******************************************************/
 //preload()
 /*******************************************************/
@@ -145,7 +153,9 @@ function gameLoop(){
 
     background(grassBackgroundImg);
 
-    groupLengthChecks();
+    difficulty();
+
+    groupLengthChecks(chicks, ducks, chickens);
 
     //Displaying score and apple count
     textSize(20);
@@ -166,6 +176,21 @@ function endGame(){
     textAlign(CENTER, CENTER);
     text("YOU DIED!", GAMEWIDTH/2, GAMEHEIGHT/2 - 40);
     text("Score: " + score, GAMEWIDTH/2, GAMEHEIGHT/2 + 10);
+}
+
+function difficulty(){
+    if (appleCount == easy){
+        chicks = 1;
+    }
+    else if(appleCount == medium){
+        chicks = 4;
+    }
+    if (chickGroup.length == 3){
+        ducks = 2;
+    }
+    if (duckGroup.length == 4){
+        chickens = 1;
+    }
 }
 
 function createPlayer(){
@@ -459,18 +484,18 @@ function chickenAppleCollision(){
 }
 
 //Makes sure sprites reappear
-function groupLengthChecks(){
+function groupLengthChecks(_chickAmount, _duckAmount, _chickenAmount){
     //if the number of chicks is less than 3, create another chick
-    if (chickGroup.length < 3){
+    if (chickGroup.length < _chickAmount){
         chickGroup.add(createChicks());
     }
 
     //if the number of ducks is less than 2, create another duck
-    if (duckGroup.length < 2){
+    if (duckGroup.length < _duckAmount){
         duckGroup.add(createDucks());
     }
 
-    if (chickenGroup.length < 1){
+    if (chickenGroup.length < _chickenAmount){
         chickenGroup.add(createChickens());
     }
 
