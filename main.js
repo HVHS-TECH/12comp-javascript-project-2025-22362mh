@@ -37,10 +37,9 @@ var ducks = 0;
 var chicks = 0;
 var chickens = 0;
 
-var easy = 3;
-var medium = 20;
-var hard = 30;
-
+var applesForNextChick = 0;
+var applesForNextDuck = 0;
+var applesForNextChicken = 0;
 /*******************************************************/
 //preload()
 /*******************************************************/
@@ -179,17 +178,17 @@ function endGame(){
 }
 
 function difficulty(){
-    if (appleCount == easy){
-        chicks = 1;
+    if (appleCount >= (applesForNextChick) * 4){ //Every 4 apples collected, spawn a chick but spawn a chick right at the start
+        chicks = chicks + 1;
+        applesForNextChick = applesForNextChick + 1;
     }
-    else if(appleCount == medium){
-        chicks = 4;
+    if (appleCount >= (applesForNextDuck + 1) * 8){ //Every 8 apples collected, spawn a duck but start when the first four apples are collected
+        ducks = ducks + 1;
+        applesForNextDuck = applesForNextDuck + 1;
     }
-    if (chickGroup.length == 3){
-        ducks = 2;
-    }
-    if (duckGroup.length == 4){
-        chickens = 1;
+    if (appleCount >= (applesForNextChicken + 1) * 12){ //Every 12 apples collected, spawn a chicken but start when the first five apples are collected
+        chickens = chickens + 1;
+        applesForNextChicken = applesForNextChicken + 1;
     }
 }
 
@@ -485,21 +484,15 @@ function chickenAppleCollision(){
 
 //Makes sure sprites reappear
 function groupLengthChecks(_chickAmount, _duckAmount, _chickenAmount){
-    //if the number of chicks is less than 3, create another chick
     if (chickGroup.length < _chickAmount){
         chickGroup.add(createChicks());
     }
-
-    //if the number of ducks is less than 2, create another duck
     if (duckGroup.length < _duckAmount){
         duckGroup.add(createDucks());
     }
-
     if (chickenGroup.length < _chickenAmount){
         chickenGroup.add(createChickens());
     }
-
-    //if the amount of apples is less than 5, create another apple
     if (appleGroup.length < 5){
         appleGroup.add(createApples());
     }
